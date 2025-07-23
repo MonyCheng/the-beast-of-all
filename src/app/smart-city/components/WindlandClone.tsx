@@ -2,82 +2,83 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Plane } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 
+// Realistic ground with streets and parks
 function CityGround() {
     const groundRef = useRef<THREE.Mesh>(null);
 
     return (
         <group>
             {/* Main ground */}
-            <Plane
+            <mesh
                 ref={groundRef}
-                args={[100, 100]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 position={[0, -0.1, 0]}
             >
+                <planeGeometry args={[100, 100]} />
                 <meshStandardMaterial
                     color="#2a2a2a"
                     roughness={0.8}
                     metalness={0.1}
                 />
-            </Plane>
+            </mesh>
 
             {/* Streets */}
             {/* Main boulevard */}
-            <Plane
-                args={[4, 100]}
+            <mesh
                 rotation={[-Math.PI / 2, 0, 0]}
                 position={[0, 0, 0]}
             >
+                <planeGeometry args={[4, 100]} />
                 <meshStandardMaterial color="#1a1a1a" />
-            </Plane>
-            <Plane
-                args={[100, 4]}
+            </mesh>
+            <mesh
                 rotation={[-Math.PI / 2, 0, 0]}
                 position={[0, 0, 0]}
             >
+                <planeGeometry args={[100, 4]} />
                 <meshStandardMaterial color="#1a1a1a" />
-            </Plane>
+            </mesh>
 
             {/* Secondary streets */}
             {[-20, -10, 10, 20].map((pos, i) => (
                 <group key={i}>
-                    <Plane
-                        args={[2, 100]}
+                    <mesh
                         rotation={[-Math.PI / 2, 0, 0]}
                         position={[pos, 0.01, 0]}
                     >
+                        <planeGeometry args={[2, 100]} />
                         <meshStandardMaterial color="#333333" />
-                    </Plane>
-                    <Plane
-                        args={[100, 2]}
+                    </mesh>
+                    <mesh
                         rotation={[-Math.PI / 2, 0, 0]}
                         position={[0, 0.01, pos]}
                     >
+                        <planeGeometry args={[100, 2]} />
                         <meshStandardMaterial color="#333333" />
-                    </Plane>
+                    </mesh>
                 </group>
             ))}
 
             {/* Sidewalks */}
             {[-21, -19, -11, -9, 9, 11, 19, 21].map((pos, i) => (
                 <group key={i}>
-                    <Plane
-                        args={[1, 100]}
+                    <mesh
                         rotation={[-Math.PI / 2, 0, 0]}
                         position={[pos, 0.02, 0]}
                     >
+                        <planeGeometry args={[1, 100]} />
                         <meshStandardMaterial color="#444444" />
-                    </Plane>
-                    <Plane
-                        args={[100, 1]}
+                    </mesh>
+                    <mesh
                         rotation={[-Math.PI / 2, 0, 0]}
                         position={[0, 0.02, pos]}
                     >
+                        <planeGeometry args={[100, 1]} />
                         <meshStandardMaterial color="#444444" />
-                    </Plane>
+                    </mesh>
                 </group>
             ))}
 
@@ -85,14 +86,14 @@ function CityGround() {
             {[
                 [-15, -15], [15, -15], [-15, 15], [15, 15]
             ].map(([x, z], i) => (
-                <Plane
+                <mesh
                     key={i}
-                    args={[6, 6]}
                     rotation={[-Math.PI / 2, 0, 0]}
                     position={[x, 0.03, z]}
                 >
+                    <planeGeometry args={[6, 6]} />
                     <meshStandardMaterial color="#0d4d0d" />
-                </Plane>
+                </mesh>
             ))}
         </group>
     );
@@ -683,66 +684,6 @@ function StreetElements() {
     );
 }
 
-// Realistic cars with movement
-function Cars() {
-    const carsRef = useRef<THREE.Group>(null);
-
-    useFrame((state) => {
-        if (carsRef.current) {
-            const time = state.clock.elapsedTime;
-            carsRef.current.children.forEach((car, i) => {
-                const speed = 0.5 + (i % 3) * 0.2;
-                if (i % 2 === 0) {
-                    car.position.x = ((time * speed) % 50) - 25;
-                    car.rotation.y = 0;
-                } else {
-                    car.position.z = ((time * speed) % 50) - 25;
-                    car.rotation.y = Math.PI / 2;
-                }
-            });
-        }
-    });
-
-    const carColors = ['#ff0000', '#0000ff', '#ffffff', '#000000', '#ffff00', '#00ff00', '#ff00ff', '#808080'];
-
-    return (
-        <group ref={carsRef}>
-        </group>
-    );
-}
-
-// People walking with realistic models
-function Pedestrians() {
-    const pedestriansRef = useRef<THREE.Group>(null);
-
-    useFrame((state) => {
-        if (pedestriansRef.current) {
-            const time = state.clock.elapsedTime;
-            pedestriansRef.current.children.forEach((person, i) => {
-                const speed = 0.2 + (i % 4) * 0.1;
-
-                if (i % 3 === 0) {
-                    person.position.x = ((time * speed) % 44) - 22;
-                    person.position.z = -22;
-                } else if (i % 3 === 1) {
-                    person.position.z = ((time * speed) % 44) - 22;
-                    person.position.x = 22;
-                } else {
-                    person.position.x = -((time * speed) % 44) + 22;
-                    person.position.z = 22;
-                }
-            });
-        }
-    });
-
-    const personColors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#a8e6cf', '#ffd93d'];
-
-    return (
-        <group ref={pedestriansRef}>
-        </group>
-    );
-}
-
 // Main 3D scene
 function Scene() {
     const { camera } = useThree();
@@ -760,15 +701,12 @@ function Scene() {
                 intensity={1}
                 color="#ffffff"
                 castShadow
-                shadow-mapSize={[2048, 2048]}
             />
             <pointLight position={[0, 10, 0]} color="#ffffe0" intensity={0.3} />
 
             {/* Environment */}
             <CityGround />
             <StreetElements />
-            <Cars />
-            <Pedestrians />
 
             {/* Buildings arranged in realistic city blocks */}
 
@@ -811,6 +749,14 @@ function Scene() {
             <DetailedBuilding position={[25, 0, -15]} height={3} width={2} depth={3} type="mixed" />
             <DetailedBuilding position={[-25, 0, 15]} height={2} width={2} depth={3} type="mixed" />
             <DetailedBuilding position={[25, 0, 15]} height={3} width={3} depth={2} type="mixed" />
+
+            {/* Trees scattered around the city */}
+            <RealisticTree position={[-12, 0, -12]} scale={0.8} />
+            <RealisticTree position={[12, 0, -12]} scale={1.2} />
+            <RealisticTree position={[-12, 0, 12]} scale={1.0} />
+            <RealisticTree position={[12, 0, 12]} scale={0.9} />
+            <RealisticTree position={[-18, 0, 18]} scale={1.1} />
+            <RealisticTree position={[18, 0, 18]} scale={0.7} />
         </>
     );
 }
@@ -826,8 +772,20 @@ function CityUI() {
 
     return (
         <div className="absolute inset-0 pointer-events-none">
+            {/* Top left time and weather info */}
+            <div className="absolute top-6 left-6 bg-black bg-opacity-70 text-white p-4 rounded-lg backdrop-blur-md">
+                <div className="text-lg font-mono">
+                    {time.toLocaleTimeString()}
+                </div>
+                <div className="text-sm text-gray-300">
+                    {time.toLocaleDateString()}
+                </div>
+                <div className="text-sm text-blue-300 mt-1">
+                    ☀️ 24°C Clear
+                </div>
+            </div>
 
-
+            {/* City metrics panel */}
             <div className="absolute top-1/2 right-10 transform -translate-y-1/2 bg-white bg-opacity-90 p-4 rounded-lg text-gray-800 pointer-events-auto backdrop-blur-md shadow-lg">
                 <h3 className="text-sm font-semibold mb-3 text-gray-600">CITY METRICS</h3>
                 <div className="space-y-2 text-sm">
@@ -855,7 +813,7 @@ function CityUI() {
             </div>
 
             {/* Bottom status bar */}
-            {/* <div className="absolute bottom-0 left-0 right-0 p-4 pointer-events-auto">
+            <div className="absolute bottom-0 left-0 right-0 p-4 pointer-events-auto">
                 <div className="bg-gray-800 bg-opacity-90 backdrop-blur-md rounded-lg p-3 text-white">
                     <div className="flex justify-between items-center text-sm">
                         <span>🏙️ Mixed-Use Development</span>
@@ -865,7 +823,7 @@ function CityUI() {
                         <span>📡 Connected Infrastructure</span>
                     </div>
                 </div>
-            </div> */}
+            </div>
         </div>
     );
 }
