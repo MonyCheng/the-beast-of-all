@@ -7,6 +7,10 @@ A stunning, interactive 3D smart city built with React Three Fiber that runs ent
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white)
 
+<img width="300" height="600" alt="Screenshot 2025-07-23 at 4 17 59 in the afternoon" src="https://github.com/user-attachments/assets/b2fd4b62-8e08-42d5-95b4-eb4e7751311c" />
+<img width="300" height="600" alt="Screenshot 2025-07-23 at 4 17 51 in the afternoon" src="https://github.com/user-attachments/assets/e62932d4-acc1-4114-aaa2-f06383e0abe3" />
+<img width="300" height="600" alt="Screenshot 2025-07-23 at 4 17 39 in the afternoon" src="https://github.com/user-attachments/assets/2baba3fa-e1de-4146-b1ac-e1c8051c963c" />
+
 ## ✨ Features
 
 ### 🏗️ **Realistic Urban Architecture**
