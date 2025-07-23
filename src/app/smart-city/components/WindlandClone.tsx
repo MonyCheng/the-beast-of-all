@@ -99,120 +99,6 @@ function CityGround() {
     );
 }
 
-// Realistic car with proper geometry
-function RealisticCar({ position, rotation = [0, 0, 0], color = '#ff0000' }: {
-    position: [number, number, number];
-    rotation?: [number, number, number];
-    color?: string;
-}) {
-    const carRef = useRef<THREE.Group>(null);
-
-    return (
-        <group ref={carRef} position={position} rotation={rotation}>
-            {/* Main car body */}
-            <mesh position={[0, 0.4, 0]}>
-                <boxGeometry args={[4, 0.8, 1.8]} />
-                <meshStandardMaterial color={color} metalness={0.7} roughness={0.3} />
-            </mesh>
-
-            {/* Car hood (slightly raised) */}
-            <mesh position={[1.5, 0.5, 0]}>
-                <boxGeometry args={[1, 0.3, 1.6]} />
-                <meshStandardMaterial color={color} metalness={0.7} roughness={0.3} />
-            </mesh>
-
-            {/* Windshield */}
-            <mesh position={[0.5, 0.9, 0]} rotation={[0.2, 0, 0]}>
-                <boxGeometry args={[1.5, 0.8, 1.6]} />
-                <meshStandardMaterial
-                    color="#87CEEB"
-                    transparent
-                    opacity={0.3}
-                    metalness={0.9}
-                    roughness={0.1}
-                />
-            </mesh>
-
-            {/* Rear window */}
-            <mesh position={[-0.8, 0.9, 0]} rotation={[-0.2, 0, 0]}>
-                <boxGeometry args={[1, 0.6, 1.6]} />
-                <meshStandardMaterial
-                    color="#87CEEB"
-                    transparent
-                    opacity={0.3}
-                    metalness={0.9}
-                    roughness={0.1}
-                />
-            </mesh>
-
-            {/* Wheels */}
-            {[
-                [1.2, -0.2, 0.8], [1.2, -0.2, -0.8],
-                [-1.2, -0.2, 0.8], [-1.2, -0.2, -0.8]
-            ].map(([x, y, z], i) => (
-                <group key={i} position={[x, y, z]}>
-                    {/* Tire */}
-                    <mesh rotation={[Math.PI / 2, 0, 0]}>
-                        <torusGeometry args={[0.3, 0.15, 8, 16]} />
-                        <meshStandardMaterial color="#1a1a1a" />
-                    </mesh>
-                    {/* Rim */}
-                    <mesh rotation={[Math.PI / 2, 0, 0]}>
-                        <cylinderGeometry args={[0.2, 0.2, 0.1, 16]} />
-                        <meshStandardMaterial color="#c0c0c0" metalness={0.9} roughness={0.1} />
-                    </mesh>
-                </group>
-            ))}
-
-            {/* Headlights */}
-            <mesh position={[2.1, 0.3, 0.5]}>
-                <sphereGeometry args={[0.15, 8, 8]} />
-                <meshStandardMaterial
-                    color="#fffacd"
-                    emissive="#fffacd"
-                    emissiveIntensity={0.3}
-                />
-            </mesh>
-            <mesh position={[2.1, 0.3, -0.5]}>
-                <sphereGeometry args={[0.15, 8, 8]} />
-                <meshStandardMaterial
-                    color="#fffacd"
-                    emissive="#fffacd"
-                    emissiveIntensity={0.3}
-                />
-            </mesh>
-
-            {/* Taillights */}
-            <mesh position={[-2.1, 0.3, 0.5]}>
-                <sphereGeometry args={[0.1, 8, 8]} />
-                <meshStandardMaterial
-                    color="#ff0000"
-                    emissive="#ff0000"
-                    emissiveIntensity={0.2}
-                />
-            </mesh>
-            <mesh position={[-2.1, 0.3, -0.5]}>
-                <sphereGeometry args={[0.1, 8, 8]} />
-                <meshStandardMaterial
-                    color="#ff0000"
-                    emissive="#ff0000"
-                    emissiveIntensity={0.2}
-                />
-            </mesh>
-
-            {/* Side mirrors */}
-            <mesh position={[0.8, 0.8, 1]}>
-                <boxGeometry args={[0.1, 0.1, 0.15]} />
-                <meshStandardMaterial color="#1a1a1a" />
-            </mesh>
-            <mesh position={[0.8, 0.8, -1]}>
-                <boxGeometry args={[0.1, 0.1, 0.15]} />
-                <meshStandardMaterial color="#1a1a1a" />
-            </mesh>
-        </group>
-    );
-}
-
 // Realistic tree with detailed geometry
 function RealisticTree({ position, scale = 1 }: {
     position: [number, number, number];
@@ -590,68 +476,6 @@ function TrafficLight({ position }: { position: [number, number, number] }) {
     );
 }
 
-// Realistic person model
-function Person({ position, color = '#ff6b6b' }: {
-    position: [number, number, number];
-    color?: string;
-}) {
-    const personRef = useRef<THREE.Group>(null);
-
-    useFrame((state) => {
-        if (personRef.current) {
-            const time = state.clock.elapsedTime;
-            // Walking animation
-            personRef.current.position.y = position[1] + Math.sin(time * 4) * 0.02;
-        }
-    });
-
-    return (
-        <group ref={personRef} position={position}>
-            {/* Body */}
-            <mesh position={[0, 1.2, 0]}>
-                <boxGeometry args={[0.3, 0.8, 0.2]} />
-                <meshStandardMaterial color={color} />
-            </mesh>
-
-            {/* Head */}
-            <mesh position={[0, 1.7, 0]}>
-                <sphereGeometry args={[0.15, 8, 8]} />
-                <meshStandardMaterial color="#fdbcb4" />
-            </mesh>
-
-            {/* Arms */}
-            <mesh position={[0.25, 1.1, 0]}>
-                <cylinderGeometry args={[0.05, 0.05, 0.6, 8]} />
-                <meshStandardMaterial color="#fdbcb4" />
-            </mesh>
-            <mesh position={[-0.25, 1.1, 0]}>
-                <cylinderGeometry args={[0.05, 0.05, 0.6, 8]} />
-                <meshStandardMaterial color="#fdbcb4" />
-            </mesh>
-
-            {/* Legs */}
-            <mesh position={[0.1, 0.4, 0]}>
-                <cylinderGeometry args={[0.06, 0.06, 0.8, 8]} />
-                <meshStandardMaterial color="#0000ff" />
-            </mesh>
-            <mesh position={[-0.1, 0.4, 0]}>
-                <cylinderGeometry args={[0.06, 0.06, 0.8, 8]} />
-                <meshStandardMaterial color="#0000ff" />
-            </mesh>
-
-            {/* Shoes */}
-            <mesh position={[0.1, 0.05, 0.05]}>
-                <boxGeometry args={[0.12, 0.06, 0.2]} />
-                <meshStandardMaterial color="#1a1a1a" />
-            </mesh>
-            <mesh position={[-0.1, 0.05, 0.05]}>
-                <boxGeometry args={[0.12, 0.06, 0.2]} />
-                <meshStandardMaterial color="#1a1a1a" />
-            </mesh>
-        </group>
-    );
-}
-
 // Street elements with realistic objects
 function StreetElements() {
     return (
@@ -808,19 +632,6 @@ function CityUI() {
                     <div className="flex justify-between">
                         <span>👥 Population:</span>
                         <span className="text-gray-700 font-medium">125K</span>
-                    </div>
-                </div>
-            </div>
-
-            {/* Bottom status bar */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 pointer-events-auto">
-                <div className="bg-gray-800 bg-opacity-90 backdrop-blur-md rounded-lg p-3 text-white">
-                    <div className="flex justify-between items-center text-sm">
-                        <span>🏙️ Mixed-Use Development</span>
-                        <span>🌳 30% Green Space</span>
-                        <span>🚶‍♂️ Walkable Design</span>
-                        <span>🚗 Smart Traffic</span>
-                        <span>📡 Connected Infrastructure</span>
                     </div>
                 </div>
             </div>
