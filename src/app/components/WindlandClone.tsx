@@ -230,7 +230,6 @@ function RealisticTree({ position, scale = 1 }: {
 
     return (
         <group ref={treeRef} position={position} scale={scale}>
-            {/* Tree trunk - tapered */}
             <mesh position={[0, 1, 0]}>
                 <cylinderGeometry args={[0.1, 0.2, 2, 8]} />
                 <meshStandardMaterial color="#8B4513" roughness={0.9} />
@@ -673,18 +672,6 @@ function StreetElements() {
             ].map(([x, y, z], i) => (
                 <TrafficLight key={i} position={[x, y, z]} />
             ))}
-
-            {/* Trees in parks */}
-            {[
-                [-15, 0, -15], [-13, 0, -15], [-17, 0, -13], [-15, 0, -17],
-                [15, 0, -15], [13, 0, -15], [17, 0, -13], [15, 0, -17],
-                [-15, 0, 15], [-13, 0, 15], [-17, 0, 13], [-15, 0, 17],
-                [15, 0, 15], [13, 0, 15], [17, 0, 13], [15, 0, 17]
-            ].map(([x, y, z], i) => (
-                <RealisticTree key={i} position={[x, y, z]} scale={0.8 + Math.random() * 0.4} />
-            ))}
-
-            {/* Park benches */}
             {[
                 [-16, 0, -14], [-14, 0, -16],
                 [16, 0, -14], [14, 0, -16],
@@ -721,13 +708,6 @@ function Cars() {
 
     return (
         <group ref={carsRef}>
-            {/* {Array.from({ length: 8 }, (_, i) => (
-                <RealisticCar
-                    key={i}
-                    position={[0, 0, i % 2 === 0 ? (i % 4 === 0 ? 1 : -1) : 0]}
-                    color={carColors[i]}
-                />
-            ))} */}
         </group>
     );
 }
@@ -760,13 +740,6 @@ function Pedestrians() {
 
     return (
         <group ref={pedestriansRef}>
-            {/* {Array.from({ length: 12 }, (_, i) => (
-                <Person
-                    key={i}
-                    position={[0, 0, 0]}
-                    color={personColors[i % personColors.length]}
-                />
-            ))} */}
         </group>
     );
 }
@@ -854,49 +827,8 @@ function CityUI() {
 
     return (
         <div className="absolute inset-0 pointer-events-none">
-            {/* Top navigation */}
-            {/* <nav className="absolute top-0 left-0 right-0 p-4 pointer-events-auto">
-                <div className="flex justify-between items-center bg-white bg-opacity-90 backdrop-blur-md rounded-lg p-4 shadow-lg">
-                    <div className="text-gray-800 text-xl font-semibold">
-                        Smart City Dashboard
-                    </div>
-                    <div className="flex space-x-6">
-                        {['Traffic', 'Transit', 'Utilities', 'Safety'].map((item) => (
-                            <button
-                                key={item}
-                                className="text-gray-600 hover:text-blue-600 transition-colors"
-                            >
-                                {item}
-                            </button>
-                        ))}
-                    </div>
-                    <div className="text-gray-600">
-                        {time.toLocaleTimeString()}
-                    </div>
-                </div>
-            </nav> */}
 
-            {/* Main info panel */}
-            {/* <div className="absolute bottom-10 left-10 text-gray-800 pointer-events-auto">
-                <div className="bg-white bg-opacity-90 backdrop-blur-md p-6 rounded-lg shadow-lg max-w-md">
-                    <h1 className="text-2xl font-bold mb-2 text-blue-800">
-                        Metropolitan Center
-                    </h1>
-                    <p className="text-gray-700 mb-4">
-                        Modern urban district with mixed-use development, green spaces, and smart infrastructure
-                    </p>
-                    <div className="flex space-x-3">
-                        <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white transition-colors">
-                            Explore
-                        </button>
-                        <button className="bg-transparent hover:bg-gray-100 px-4 py-2 rounded border border-gray-400 transition-colors">
-                            Details
-                        </button>
-                    </div>
-                </div>
-            </div> */}
 
-            {/* City stats */}
             <div className="absolute top-1/2 right-10 transform -translate-y-1/2 bg-white bg-opacity-90 p-4 rounded-lg text-gray-800 pointer-events-auto backdrop-blur-md shadow-lg">
                 <h3 className="text-sm font-semibold mb-3 text-gray-600">CITY METRICS</h3>
                 <div className="space-y-2 text-sm">
