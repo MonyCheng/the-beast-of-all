@@ -265,8 +265,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- 🐛 Issues: https://github.com/yourusername/3d-smart-city/discussions](https://github.com/MonyCheng
-- 💼 LinkedIn: https://twitter.com/yourusername](https://www.linkedin.com/in/phearunmony-chheng-45a4a5231/
+- 🐛 Issues: https://github.com/MonyCheng
+- 💼 LinkedIn: https://www.linkedin.com/in/phearunmony-chheng-45a4a5231/
 
 ---
 
