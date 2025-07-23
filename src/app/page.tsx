@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
 const WindlandClone = dynamic(
-  () => import('./smart-city/components/WindlandClone') as Promise<{ default: React.ComponentType<any> }>,
+  () => import('./smart-city/components/WindlandClone'),
   { ssr: false }
 );
 
