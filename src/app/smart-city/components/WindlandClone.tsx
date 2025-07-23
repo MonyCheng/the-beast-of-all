@@ -2,10 +2,9 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Text, Box, Sphere, Plane, Cylinder } from '@react-three/drei';
+import { OrbitControls, Plane } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Realistic ground with streets and parks
 function CityGround() {
     const groundRef = useRef<THREE.Mesh>(null);
 
